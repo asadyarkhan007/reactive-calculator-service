@@ -15,13 +15,17 @@ public class Router {
 
     @Bean
     RouterFunction<ServerResponse> serverResponseRouterFunction() {
+        return RouterFunctions.route().path("reactive", this::getServerResponseRouterFunction).build();
+    }
+
+    private RouterFunction<ServerResponse> getServerResponseRouterFunction() {
         return RouterFunctions.route()
-                .POST("reactive/calculator/add", reactiveCalculatorService::add)
-                .POST("reactive/calculator/subtract", reactiveCalculatorService::sub)
-                .POST("reactive/calculator/multiply", reactiveCalculatorService::mul)
-                .POST("reactive/calculator/divide", reactiveCalculatorService::div)
-                .POST("reactive/calculator/factorial", reactiveCalculatorService::factorial)
-                .POST("reactive/calculator/table", reactiveCalculatorService::table)
+                .POST("/calculator/add", reactiveCalculatorService::add)
+                .POST("/calculator/subtract", reactiveCalculatorService::sub)
+                .POST("/calculator/multiply", reactiveCalculatorService::mul)
+                .POST("/calculator/divide", reactiveCalculatorService::div)
+                .POST("/calculator/factorial", reactiveCalculatorService::factorial)
+                .POST("/calculator/table", reactiveCalculatorService::table)
                 .build();
     }
 }

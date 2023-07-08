@@ -4,6 +4,7 @@ import com.reactivecalculator.model.FactorialDto;
 import com.reactivecalculator.model.RequestSingleInput;
 import com.reactivecalculator.model.RequestTwoInput;
 import com.reactivecalculator.model.ResponseOutput;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -15,9 +16,11 @@ import java.time.Duration;
 import java.util.Date;
 
 @Service
+@Slf4j
 public record ReactiveCalculatorService() {
 
     public Mono<ServerResponse> add(ServerRequest serverRequest) {
+        log.info(serverRequest.headers().toString());
         return serverRequest.bodyToMono(RequestTwoInput.class)
                 .flatMap(requestTwoInput -> ServerResponse.ok()
                         .bodyValue(ResponseOutput.builder()
@@ -73,7 +76,11 @@ public record ReactiveCalculatorService() {
     }
 
     private Flux<ResponseOutput> getFactorialFlux(RequestSingleInput requestSingleInput) {
-        return Flux.generate(() -> FactorialDto.builder().counter((int) requestSingleInput.getNum1()).factValue(requestSingleInput.getNum1()).build(), (factorial, synchronousSink) -> {
+        return Flux.generate(() -> FactorialDto.builder().counter((int) requestSingleInput.getNum1())
+                .factValue(requestSingleInput.getNum1()).build(), (factorial, synchronousSink) -> {
+            if(factorial.getCounter() >20) {
+                synchronousSink.error(new IllegalArgumentException("invalid number" + factorial.getCounter()));
+            }
             if (factorial.getCounter() <= 1) {
                 synchronousSink.next(ResponseOutput.builder().result(factorial.getFactValue()).date(new Date()).build());
                 synchronousSink.complete();

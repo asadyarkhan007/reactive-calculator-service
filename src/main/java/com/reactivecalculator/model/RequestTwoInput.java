@@ -7,10 +7,11 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class RequestTwoInput extends RequestSingleInput {
     protected double num2;
-
-    public RequestTwoInput(Object getNum1, int i) {
+    @Builder
+    public RequestTwoInput(int num1, int num2) {
+        this.num1 = num1;
+        this.num2 = num2;
     }
 }
