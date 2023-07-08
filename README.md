@@ -1,10 +1,4 @@
-Dear Samantha,
-
-I hope this message finds you well. I wanted to express my gratitude for reaching out to me on LinkedIn regarding the System Engineer position at Smil'e core. After thoroughly reviewing the job description, I am confident that I am an ideal match for the role. Your client specifically requires a candidate with over 10 years of experience, along with proficiency in technologies such as Java, Spring, and SQL databases. I am pleased to inform you that I possess the requisite experience and have successfully worked with all of these technologies. I kindly request you to schedule a call so that we can discuss this opportunity further.
-
-Thank you for considering my application.
-
-Sincerely,# Reactive Calculator Service
+# Reactive Calculator Service
 
 This is a reactive calculator service built using JDK 17, Spring WebFlux, and Lombok. It provides endpoints for performing addition, subtraction, multiplication, division, factorial, and table operations.
 
